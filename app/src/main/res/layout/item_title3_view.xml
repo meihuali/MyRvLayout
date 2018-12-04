@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_marginTop="15dp"
+    android:id="@+id/card_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    >
+    <!--其他 加扩展功能-->
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="25dp">
+        <View
+            android:background="@color/colorPrimary"
+            android:layout_marginLeft="12dp"
+            android:layout_width="3dp"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical"
+            android:id="@+id/tv1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
+            android:text="常用功能"
+            />
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>

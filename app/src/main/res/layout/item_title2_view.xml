@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!--分割线 加基本功-->
+
+    <View
+        android:background="#CCCC"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="25dp">
+        <View
+            android:background="@color/colorPrimary"
+            android:layout_marginLeft="12dp"
+            android:layout_width="3dp"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical"
+            android:id="@+id/tv1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
+            android:text="常用功能"
+            />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/card_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    >
+
+        <!--基本功能-->
+        <RelativeLayout
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/img_function"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/ic_launcher_round"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    />
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:layout_below="@+id/img_function"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/tv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:text="已有应用"
+                    />
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/img_add"
+                    android:layout_marginRight="9dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/img_minus"
+                    android:visibility="gone"
+                    android:layout_marginRight="9dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/reduce"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+</LinearLayout>
