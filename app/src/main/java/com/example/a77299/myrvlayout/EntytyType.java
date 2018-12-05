@@ -25,8 +25,18 @@ public class EntytyType implements MultiItemEntity {
     private int pid;
     private int curArea;
     public int isState = 0; //0 表示不显示加减号，1表示显示加号，2 表示显示减号
+    public int isSaveMinus = 0; //默认为0， 1，表示将所有点击《加号》后的item 记录下来
+    // public int isSaveAdd = 0; //默认为0， 1，表示将所有item 《加号》记录下来
+    public int sorts = 0; // Grenndao //用来排序的
 
-    public int sorts = 0;
+
+    public int getIsSaveMinus() {
+        return isSaveMinus;
+    }
+
+    public void setIsSaveMinus(int isSaveMinus) {
+        this.isSaveMinus = isSaveMinus;
+    }
 
     public int getSorts() {
         return sorts;
@@ -65,9 +75,9 @@ public class EntytyType implements MultiItemEntity {
         this.curArea = curArea;
     }
 
-    @Generated(hash = 1390424319)
+    @Generated(hash = 998901031)
     public EntytyType(Long testId, int channelType, String content, int area, int pid,
-            int curArea, int isState, int sorts) {
+            int curArea, int isState, int isSaveMinus, int sorts) {
         this.testId = testId;
         this.channelType = channelType;
         this.content = content;
@@ -75,6 +85,7 @@ public class EntytyType implements MultiItemEntity {
         this.pid = pid;
         this.curArea = curArea;
         this.isState = isState;
+        this.isSaveMinus = isSaveMinus;
         this.sorts = sorts;
     }
 

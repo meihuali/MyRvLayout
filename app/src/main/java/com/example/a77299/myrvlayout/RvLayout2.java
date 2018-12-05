@@ -18,7 +18,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +26,7 @@ import java.util.SortedSet;
 import static com.example.a77299.myrvlayout.EntytyTypeDao.Properties.Sorts;
 
 
-public class RvLayout extends  BaseActivity implements View.OnClickListener {
+public class RvLayout2 extends  BaseActivity implements View.OnClickListener {
     private RecyclerView mRecyclerView;
     private TextView tv_edit;
     private boolean isItemState = false;
@@ -113,19 +112,70 @@ public class RvLayout extends  BaseActivity implements View.OnClickListener {
                     case R.id.img_add:
                         EntytyType Type1 = (EntytyType) adapter.getData().get(position);
                         Type1.setIsState(2);
-                        Type1.setIsSaveMinus(1);
-                        MyList.clear();
-                        MyList.add(Type1);
-                        list.addAll(1, MyList);
+                        int area1 = Type1.getArea();
+                        int pid1 = Type1.getPid();
+
+                        for( EntytyType entytyType :OtherList){
+                            if(area1 == entytyType.getArea() && pid1 == entytyType.getPid()){
+                                entytyType.setIsState(2);
+                                int curArea = entytyType.getCurArea();
+                                Type1.setCurArea(0);
+                                EntytyType et = new EntytyType();
+                                et.setCurArea(0);
+                                et.setIsState(entytyType.getIsState());
+                                et.setChannelType(entytyType.getChannelType());
+                                et.setContent(entytyType.getContent());
+                                et.setPid(entytyType.getPid());
+                                et.setArea(entytyType.getArea());
+                                MyList.add(et);
+                                break;
+                            }
+
+                        }
+
+                        list.clear();
+                        list.addAll(MyList);
+                        list.addAll(OtherList);
                         multipleItemAdapter.notifyDataSetChanged();
 
+                        entytyTypeDao = daoSession.getEntytyTypeDao();
+                        entytyTypeDao.deleteAll();
+
+                        for (int i = 0; i < list.size(); i++) {
+                            list.get(i).setSorts(i);
+                        }
+                        entytyTypeDao.insertInTx(list);
+                        ShareUtils.putBoolean(mContext,"isItemState",true);
                         break;
                     //减号点击事件
                     case R.id.img_minus:
                         EntytyType type2 = (EntytyType) adapter.getData().get(position);
-                        type2.setIsState(1);
-                        list.remove(type2);
+                        int area2 = type2.getArea();
+                        int pid2 = type2.getPid();
+                        for( EntytyType entytyType :OtherList){
+                            if(area2 == entytyType.getArea() && pid2 == entytyType.getPid()){
+                                entytyType.setIsState(1);
+                                break;
+                            }
+                        }
+
+                        for( int i = 0 ; i < MyList.size() ; i ++){
+                            EntytyType entytyType = MyList.get(i);
+                            if(area2 == entytyType.getArea() && pid2 == entytyType.getPid()){
+                                MyList.remove(i);
+                                break;
+                            }
+                        }
+
+
+                        list.clear();
+                        list.addAll(MyList);
+                        list.addAll(OtherList);
                         multipleItemAdapter.notifyDataSetChanged();
+                        entytyTypeDao = daoSession.getEntytyTypeDao();
+                        entytyTypeDao.deleteAll();
+                        entytyTypeDao.insertInTx(list);
+                        ShareUtils.putBoolean(mContext,"isItemState",true);
                         break;
                 }
             }
@@ -213,46 +263,21 @@ public class RvLayout extends  BaseActivity implements View.OnClickListener {
     }
 
 
-    private boolean isFisrtEditState = false;
+
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             //遍历是否要显示 加减号
             case R.id.tv_edit:
-                //点击完成走这个if
                 if (isFirstState) {
                     tv_edit.setText("编辑");
-                   // initData(0);
+                    initData(0);
                     isFirstState = false;
-
-                    //点击完成按钮后，将所有的item中IsState属性设置为0，具体标识位请查看实体类
-                    for (int i = 0; i < list.size(); i++) {
-                        list.get(i).setIsState(0);
-                    }
-                    multipleItemAdapter.notifyDataSetChanged();
                 } else {
                     tv_edit.setText("完成");
+                    initData(1);
                     isFirstState = true;
-
-                    if (isFisrtEditState) {
-                        for (int i = 0; i < list.size(); i++) {
-                            int IsSaveMinus = list.get(i).getIsSaveMinus();
-                            if (IsSaveMinus == 1) {
-                              list.get(i).setIsState(2);
-                            }
-                            if (IsSaveMinus != 1) {
-                                list.get(i).setIsState(1);
-                            }
-                        }
-                    } else {
-                        initData(1);
-                        isFisrtEditState = true; //等于true 标识已经点击过一次编辑
-
-                    }
-
-
-
                 }
                 multipleItemAdapter.notifyDataSetChanged();
                 //这里很坑爹，就是你调用了·NotifyDataSetChanged后 要在掉一次 item 监听事件也就是 initListener(); 方法
