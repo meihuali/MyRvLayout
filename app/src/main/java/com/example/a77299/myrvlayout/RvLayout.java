@@ -26,7 +26,9 @@ import java.util.SortedSet;
 
 import static com.example.a77299.myrvlayout.EntytyTypeDao.Properties.Sorts;
 
-
+/**
+ * 多功能编辑
+ * */
 public class RvLayout extends  BaseActivity implements View.OnClickListener {
     private RecyclerView mRecyclerView;
     private TextView tv_edit;
